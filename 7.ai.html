@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>AI Assistant | LawFirm CMS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+body {
+  background: #020617;
+  color: #e5e7eb;
+  margin: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 260px;
+  background: linear-gradient(180deg, #020617, #0f172a);
+  border-right: 1px solid #1e293b;
+  padding: 20px;
+}
+
+.nav a {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  color: #cbd5f5;
+  text-decoration: none;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.nav a.active,
+.nav a:hover {
+  background: #1e293b;
+  color: #facc15;
+}
+
+/* Main */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  height: 64px;
+  border-bottom: 1px solid #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+
+.content {
+  padding: 24px;
+}
+
+/* Cards */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: #020617;
+  border: 1px solid #1e293b;
+  border-radius: 14px;
+  padding: 20px;
+  transition: 0.2s;
+}
+
+.card:hover {
+  border-color: #facc15;
+  transform: translateY(-3px);
+}
+
+.card h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.card p {
+  font-size: 13px;
+  color: #94a3b8;
+  margin-bottom: 12px;
+}
+
+.tag {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  background: #1e293b;
+  color: #facc15;
+  display: inline-block;
+}
+
+.btn {
+  margin-top: 12px;
+  background: #2563eb;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #1e40af;
+}
+.back-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #007bff;
+  color: white;
+  padding: 10px 16px;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+}
+.back-button:hover {
+  background-color: #0056b3;
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:30px;">
+    <i data-lucide="scale"></i>
+    <h2>LawFirm CMS</h2>
+  </div>
+
+  <nav class="nav">
+    <a href="1dashboard.html"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+    <a href="cases.html"><i data-lucide="briefcase"></i> Cases</a>
+    <a class="active" href="#"><i data-lucide="brain"></i> AI Assistant</a>
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <h3>AI Legal Assistant</h3>
+    <span class="tag">AI Powered</span>
+  </header>
+
+  <!-- CONTENT -->
+  <main class="content">
+
+    <div class="grid">
+
+      <!-- AI Drafting -->
+      <div class="card">
+        <h3><i data-lucide="edit-3"></i> AI Drafting Workspace</h3>
+        <p>
+          Generate petitions, notices, affidavits, and legal drafts using AI.
+        </p>
+        <ul style="font-size:13px;color:#cbd5f5;line-height:1.6;">
+          <li>• Save AI-generated drafts</li>
+          <li>• Attach draft to a case</li>
+          <li>• View draft inside Case Detail</li>
+        </ul>
+        <button class="btn">Open Drafting Workspace</button>
+      </div>
+
+      <!-- AI Research -->
+      <div class="card">
+        <h3><i data-lucide="search"></i> AI Research Assistance</h3>
+        <p>
+          Smart legal research with case laws, judgments, and precedents.
+        </p>
+        <ul style="font-size:13px;color:#cbd5f5;line-height:1.6;">
+          <li>• Judgment summaries</li>
+          <li>• Relevant precedents</li>
+          <li>• Section & Act references</li>
+        </ul>
+        <button class="btn">Start Research</button>
+      </div>
+
+      <!-- Document Prioritization -->
+      <div class="card">
+        <h3><i data-lucide="layers"></i> AI Document Prioritization</h3>
+        <p>
+          Automatically rank documents based on urgency, hearing date, and case impact.
+        </p>
+        <ul style="font-size:13px;color:#cbd5f5;line-height:1.6;">
+          <li>• Hearing-based priority</li>
+          <li>• Missing document alerts</li>
+          <li>• Evidence importance score</li>
+        </ul>
+        <button class="btn">View Priorities</button>
+      </div>
+
+      <!-- Integrations -->
+      <div class="card">
+        <h3><i data-lucide="plug"></i> AI Integrations Setup</h3>
+        <p>
+          Configure AI models and external services.
+        </p>
+        <ul style="font-size:13px;color:#cbd5f5;line-height:1.6;">
+          <li>• OpenAI / LLM providers</li>
+          <li>• Court database APIs</li>
+          <li>• Document OCR services</li>
+        </ul>
+        <span class="tag">Admin Only</span>
+      </div>
+
+    </div>
+
+  </main>
+</div>
+
+<script>
+lucide.createIcons();
+</script>
+<!-- Bottom-Right Back Button -->
+    <a href="1dashboard.html" class="back-button">Back</a>
+
+</body>
+</html>
+
+
+

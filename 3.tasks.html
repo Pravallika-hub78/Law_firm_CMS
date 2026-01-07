@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>LawFirm CMS | Tasks</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",system-ui;}
+body{background:#020617;color:#e5e7eb;display:flex;min-height:100vh}
+
+/* Sidebar */
+.sidebar{width:260px;background:linear-gradient(180deg,#020617,#0f172a);border-right:1px solid #1e293b;padding:20px}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:30px}
+.brand svg{width:34px;height:34px;stroke:#facc15}
+.nav a{display:flex;gap:12px;padding:12px;border-radius:8px;color:#cbd5f5;text-decoration:none;font-size:14px;margin-bottom:6px}
+.nav a:hover,.nav a.active{background:#1e293b;color:#facc15}
+
+/* Main */
+.main{flex:1;display:flex;flex-direction:column}
+
+/* Topbar */
+.topbar{height:64px;border-bottom:1px solid #1e293b;display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+.topbar h1{font-family:Georgia;font-size:18px}
+
+/* Content */
+.content{padding:24px}
+.task-layout{display:grid;grid-template-columns:1.2fr 2fr;gap:20px}
+
+/* Cards */
+.card{background:#020617;border:1px solid #1e293b;border-radius:14px;padding:18px}
+
+/* Filter Section */
+.filters{
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:10px;
+  margin-bottom:16px
+}
+.filters select{
+  background:#020617;
+  border:1px solid #1e293b;
+  color:#e5e7eb;
+  padding:8px;
+  border-radius:8px;
+  font-size:13px
+}
+.filters button{
+  background:#1e293b;
+  color:#facc15;
+  border:none;
+  border-radius:8px;
+  padding:8px 14px;
+  cursor:pointer;
+  font-size:13px
+}
+
+/* Task List */
+.task-item{padding:12px;border-radius:10px;border:1px solid #1e293b;margin-bottom:10px;cursor:pointer}
+.task-item:hover,.task-item.active{border-color:#facc15;background:#020617}
+.task-title{font-size:14px;font-weight:600}
+.task-meta{font-size:12px;color:#94a3b8;margin-top:4px}
+
+/* Badges */
+.badge{font-size:11px;padding:4px 10px;border-radius:12px;font-weight:600;display:inline-block}
+.high{background:rgba(239,68,68,.15);color:#ef4444}
+.medium{background:rgba(250,204,21,.15);color:#facc15}
+.low{background:rgba(34,197,94,.15);color:#22c55e}
+.open{background:#1e293b;color:#facc15}
+.done{background:rgba(34,197,94,.15);color:#22c55e}
+
+/* Details */
+.detail-row{margin-bottom:12px;font-size:14px}
+.label{color:#94a3b8;font-size:12px}
+
+/* FAB */
+.fab{
+  position:fixed;bottom:24px;right:24px;
+  width:56px;height:56px;
+  background:#2563eb;color:#fff;
+  border-radius:50%;
+  display:flex;align-items:center;
+  justify-content:center;font-size:28px;
+  cursor:pointer;box-shadow:0 8px 20px rgba(37,99,235,0.4)
+}
+.fab-menu{
+  position:fixed;bottom:90px;right:24px;
+  background:#ffffff;border-radius:10px;
+  box-shadow:0 10px 24px rgba(0,0,0,0.15);
+  display:none;overflow:hidden
+}
+.fab-menu a{
+  display:block;padding:12px 16px;
+  text-decoration:none;color:#1f2937;
+  border-bottom:1px solid #e5e7eb
+}
+.fab-menu a:hover{background:#f1f5f9}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="brand">
+    <i data-lucide="scale"></i>
+    <h2>LawFirm CMS</h2>
+  </div>
+  <nav class="nav">
+    <a href="1dashboard.html"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+    <a href="1.cases.html"><i data-lucide="briefcase"></i> Cases</a>
+    <a href="tasks.html" class="active"><i data-lucide="check-square"></i> Tasks</a>
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+
+<header class="topbar">
+  <h1>Task Management</h1>
+</header>
+
+<main class="content">
+<div class="task-layout">
+
+<!-- TASK LIST -->
+<div class="card">
+  <h3 style="margin-bottom:12px">Task List</h3>
+
+  <!-- FILTER SECTION -->
+  <div class="filters">
+    <select>
+      <option>All Priorities</option>
+      <option>High</option>
+      <option>Medium</option>
+      <option>Low</option>
+    </select>
+
+    <select>
+      <option>All Status</option>
+      <option>Open</option>
+      <option>Done</option>
+    </select>
+
+    <button>Reset</button>
+  </div>
+
+  <div class="task-item active" onclick="loadTask(0)">
+    <div class="task-title">Prepare Bail Application</div>
+    <div class="task-meta">Case: State vs Rakesh Kumar</div>
+    <span class="badge high">High</span>
+  </div>
+
+  <div class="task-item" onclick="loadTask(1)">
+    <div class="task-title">Review Property Documents</div>
+    <div class="task-meta">Client: Ayesha Sharma</div>
+    <span class="badge medium">Medium</span>
+  </div>
+
+  <div class="task-item" onclick="loadTask(2)">
+    <div class="task-title">Draft Legal Notice</div>
+    <div class="task-meta">Case: ABC Corp vs XYZ Ltd</div>
+    <span class="badge low">Low</span>
+  </div>
+</div>
+
+<!-- TASK DETAILS -->
+<div class="card" id="taskDetails">
+  <h3 style="margin-bottom:16px">Task Details</h3>
+
+  <div class="detail-row">
+    <div class="label">Title</div>
+    <div id="dTitle">Prepare Bail Application</div>
+  </div>
+
+  <div class="detail-row">
+    <div class="label">Assigned To</div>
+    <div id="dUser">Adv. Rahul Verma</div>
+  </div>
+
+  <div class="detail-row">
+    <div class="label">Due Date</div>
+    <div id="dDate">10 Jan 2026</div>
+  </div>
+
+  <div class="detail-row">
+    <div class="label">Priority</div>
+    <span id="dPriority" class="badge high">High</span>
+  </div>
+
+  <div class="detail-row">
+    <div class="label">Status</div>
+    <span id="dStatus" class="badge open">Open</span>
+  </div>
+
+  <div class="detail-row">
+    <div class="label">Description</div>
+    <p id="dDesc" style="margin-top:6px;color:#cbd5f5">
+      Draft and file bail application before the scheduled hearing.
+    </p>
+  </div>
+</div>
+
+</div>
+</main>
+
+</div>
+
+<!-- FAB -->
+<div class="fab" onclick="toggleFab()">+</div>
+<div class="fab-menu" id="fabMenu">
+  <a href="newtaskform.html">Add Task</a>
+</div>
+
+<script>
+lucide.createIcons();
+
+function toggleFab(){
+  const menu=document.getElementById('fabMenu');
+  menu.style.display=menu.style.display==="block"?"none":"block";
+}
+
+const tasks=[
+{title:"Prepare Bail Application",user:"Adv. Rahul Verma",date:"10 Jan 2026",priority:"high",status:"open",desc:"Draft and file bail application before the scheduled hearing."},
+{title:"Review Property Documents",user:"Adv. Neha Singh",date:"12 Jan 2026",priority:"medium",status:"open",desc:"Verify title deed and registration details."},
+{title:"Draft Legal Notice",user:"Adv. Arjun Rao",date:"15 Jan 2026",priority:"low",status:"done",desc:"Prepare legal notice and send to opposing party."}
+];
+
+function loadTask(i){
+ const t=tasks[i];
+ dTitle.innerText=t.title;
+ dUser.innerText=t.user;
+ dDate.innerText=t.date;
+ dDesc.innerText=t.desc;
+ dPriority.className=`badge ${t.priority}`;
+ dPriority.innerText=t.priority.toUpperCase();
+ dStatus.className=`badge ${t.status}`;
+ dStatus.innerText=t.status.toUpperCase();
+ document.querySelectorAll(".task-item").forEach(el=>el.classList.remove("active"));
+ document.querySelectorAll(".task-item")[i].classList.add("active");
+}
+</script>
+
+</body>
+</html>

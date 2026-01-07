@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>LawFirm CMS | Audit Logs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+/* === SAME GLOBAL STYLES FROM DASHBOARD === */
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",system-ui,sans-serif}
+body{background:#020617;color:#e5e7eb;display:flex;min-height:100vh}
+
+/* Sidebar */
+.sidebar{width:260px;background:linear-gradient(180deg,#020617,#0f172a);border-right:1px solid #1e293b;padding:20px}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:30px}
+.brand svg{stroke:#facc15}
+.nav a{display:flex;align-items:center;gap:12px;padding:12px;border-radius:8px;color:#cbd5f5;text-decoration:none;font-size:14px;margin-bottom:6px}
+.nav a:hover,.nav a.active{background:#1e293b;color:#facc15}
+
+/* Main */
+.main{flex:1;display:flex;flex-direction:column}
+.topbar{height:64px;background:#020617;border-bottom:1px solid #1e293b;display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+.content{padding:24px}
+
+/* Cards */
+.card{background:#020617;border:1px solid #1e293b;border-radius:14px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.card h3{font-size:16px;margin-bottom:12px}
+
+/* Filters */
+.filters{
+  display:flex;
+  gap:12px;
+  margin-bottom:16px
+}
+.filters input, .filters select{
+  background:#020617;
+  border:1px solid #1e293b;
+  color:#e5e7eb;
+  padding:8px 10px;
+  border-radius:8px;
+  font-size:13px
+}
+
+/* Table */
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:13px
+}
+thead th{
+  text-align:left;
+  padding:10px;
+  border-bottom:1px solid #1e293b;
+  color:#94a3b8
+}
+tbody td{
+  padding:10px;
+  border-bottom:1px solid #1e293b
+}
+tbody tr:hover{
+  background:#020617
+}
+
+/* Badges */
+.badge{
+  padding:4px 10px;
+  border-radius:12px;
+  font-size:11px;
+  font-weight:600;
+  white-space:nowrap
+}
+.badge.admin{background:#1e293b;color:#facc15}
+.badge.user{background:rgba(59,130,246,.15);color:#3b82f6}
+.badge.security{background:rgba(239,68,68,.15);color:#ef4444}
+
+/* Footer Note */
+.note{
+  margin-top:14px;
+  font-size:12px;
+  color:#94a3b8
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="brand">
+    <i data-lucide="scale"></i>
+    <h2>LawFirm CMS</h2>
+  </div>
+
+  <nav class="nav">
+    <a href="dashboard.html"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+    <a href="9.admin.html"><i data-lucide="shield-check"></i> Admin</a>
+    <a class="active"><i data-lucide="clipboard-list"></i> Audit Logs</a>
+    <a href="setting.html"><i data-lucide="settings"></i> Settings</a>
+    <a href="index.html"><i data-lucide="log-out"></i> Logout</a>
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+
+<header class="topbar">
+  <h3><i data-lucide="clipboard-list"></i> Audit Logs</h3>
+  <span class="badge admin">Admin Access</span>
+</header>
+
+<main class="content">
+
+<section class="card">
+
+  <!-- FILTERS -->
+  <div class="filters">
+    <input type="date">
+    <select>
+      <option>All Users</option>
+      <option>Admin</option>
+      <option>Lawyer</option>
+      <option>Staff</option>
+    </select>
+    <select>
+      <option>All Actions</option>
+      <option>Login</option>
+      <option>Create</option>
+      <option>Update</option>
+      <option>Delete</option>
+    </select>
+  </div>
+
+  <!-- AUDIT TABLE -->
+  <table>
+    <thead>
+      <tr>
+        <th>Date & Time</th>
+        <th>User</th>
+        <th>Role</th>
+        <th>Action</th>
+        <th>Module</th>
+        <th>IP Address</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>07 Jan 2026, 10:21 AM</td>
+        <td>admin@lawfirm.com</td>
+        <td><span class="badge admin">Admin</span></td>
+        <td>Logged In</td>
+        <td>Authentication</td>
+        <td>192.168.1.15</td>
+      </tr>
+      <tr>
+        <td>07 Jan 2026, 10:35 AM</td>
+        <td>admin@lawfirm.com</td>
+        <td><span class="badge admin">Admin</span></td>
+        <td>Created Case</td>
+        <td>Cases</td>
+        <td>192.168.1.15</td>
+      </tr>
+      <tr>
+        <td>07 Jan 2026, 11:10 AM</td>
+        <td>lawyer1@lawfirm.com</td>
+        <td><span class="badge user">Lawyer</span></td>
+        <td>Updated Hearing</td>
+        <td>Hearings</td>
+        <td>192.168.1.22</td>
+      </tr>
+      <tr>
+        <td>07 Jan 2026, 11:45 AM</td>
+        <td>admin@lawfirm.com</td>
+        <td><span class="badge security">Security</span></td>
+        <td>Password Changed</td>
+        <td>Profile</td>
+        <td>192.168.1.15</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="note">
+    <i data-lucide="info"></i>
+    Audit logs are immutable and retained for compliance & security monitoring.
+  </div>
+
+</section>
+
+</main>
+</div>
+
+<script>
+lucide.createIcons();
+</script>
+
+</body>
+</html>

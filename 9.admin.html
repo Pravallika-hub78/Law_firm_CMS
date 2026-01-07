@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>LawFirm CMS | Admin Panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",system-ui,sans-serif}
+body{background:#020617;color:#e5e7eb;display:flex;min-height:100vh}
+
+/* Sidebar */
+.sidebar{
+  width:260px;
+  background:linear-gradient(180deg,#020617,#0f172a);
+  border-right:1px solid #1e293b;
+  padding:20px;
+}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:30px}
+.brand svg{stroke:#facc15}
+.nav a{
+  display:flex;align-items:center;gap:12px;
+  padding:12px;border-radius:8px;
+  color:#cbd5f5;text-decoration:none;font-size:14px;margin-bottom:6px
+}
+.nav a:hover,.nav a.active{background:#1e293b;color:#facc15}
+
+/* Main */
+.main{flex:1;display:flex;flex-direction:column}
+.topbar{
+  height:64px;background:#020617;
+  border-bottom:1px solid #1e293b;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px
+}
+.content{padding:24px}
+
+/* Cards */
+.card{
+  background:#020617;border:1px solid #1e293b;
+  border-radius:14px;padding:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,.4)
+}
+
+/* Table */
+table{width:100%;border-collapse:collapse}
+th,td{padding:12px;font-size:13px;border-bottom:1px solid #1e293b}
+th{color:#94a3b8;text-align:left}
+.badge{
+  padding:4px 10px;border-radius:12px;
+  font-size:11px;font-weight:600;
+}
+.role{background:#1e293b;color:#facc15}
+.active{background:rgba(34,197,94,.15);color:#22c55e}
+.disabled{background:rgba(239,68,68,.15);color:#ef4444}
+
+/* Buttons */
+.btn{
+  padding:8px 14px;border-radius:8px;
+  border:1px solid #1e293b;background:#020617;
+  color:#e5e7eb;cursor:pointer;font-size:13px
+}
+.btn.primary{background:#2563eb;border-color:#2563eb}
+.btn:hover{opacity:.9}
+
+/* Modal */
+.modal{
+  position:fixed;inset:0;background:rgba(0,0,0,.6);
+  display:none;align-items:center;justify-content:center
+}
+.modal-content{
+  width:420px;background:#020617;
+  border:1px solid #1e293b;border-radius:12px;padding:20px
+}
+.modal h3{margin-bottom:16px}
+.modal input,.modal select{
+  width:100%;padding:10px;
+  background:#020617;border:1px solid #1e293b;
+  color:#e5e7eb;border-radius:8px;margin-bottom:12px
+}
+.modal-actions{display:flex;justify-content:flex-end;gap:10px}
+.back-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #007bff;
+  color: white;
+  padding: 10px 16px;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+}
+.back-button:hover {
+  background-color: #0056b3;
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="brand">
+    <i data-lucide="shield"></i>
+    <h2>Admin Panel</h2>
+  </div>
+  <nav class="nav">
+    <a href="1dashboard.html"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+    <a href="#" class="active"><i data-lucide="users"></i> User Management</a>
+    <a href="auditlog.html"><i data-lucide="list"></i> Audit Logs</a>
+    <a href="setting.html"><i data-lucide="settings"></i> Settings</a>
+    <a href="index.html"><i data-lucide="log-out"></i> Logout</a>
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+<header class="topbar">
+  <h3>Administration</h3>
+  <button class="btn primary" onclick="openModal()">+ Add User</button>
+</header>
+
+<main class="content">
+
+<!-- USER MANAGEMENT -->
+<section class="card">
+<h3>User Management</h3>
+<br>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Role</th>
+<th>Status</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Admin User</td>
+<td>admin@lawfirm.com</td>
+<td><span class="badge role">Super Admin</span></td>
+<td><span class="badge active">Active</span></td>
+<td><button class="btn">Edit</button></td>
+</tr>
+<tr>
+<td>Rohit Sharma</td>
+<td>rohit@lawfirm.com</td>
+<td><span class="badge role">Associate</span></td>
+<td><span class="badge active">Active</span></td>
+<td><button class="btn">Edit</button></td>
+</tr>
+<tr>
+<td>Intern User</td>
+<td>intern@lawfirm.com</td>
+<td><span class="badge role">Intern</span></td>
+<td><span class="badge disabled">Disabled</span></td>
+<td><button class="btn">Edit</button></td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<br>
+</main>
+</div>
+
+<!-- ADD / EDIT USER MODAL -->
+<div class="modal" id="userModal">
+<div class="modal-content">
+<h3>Add / Edit User</h3>
+<input type="text" placeholder="Full Name">
+<input type="email" placeholder="Email">
+<select>
+<option>Super Admin</option>
+<option>Partner</option>
+<option>Associate</option>
+<option>Intern</option>
+<option>Admin / Clerk</option>
+<option>Finance</option>
+</select>
+<select>
+<option>Active</option>
+<option>Disabled</option>
+</select>
+<div class="modal-actions">
+<button class="btn" onclick="closeModal()">Cancel</button>
+<button class="btn primary">Save</button>
+</div>
+</div>
+</div>
+
+<script>
+lucide.createIcons();
+function openModal(){document.getElementById('userModal').style.display='flex'}
+function closeModal(){document.getElementById('userModal').style.display='none'}
+</script>
+<!-- Bottom-Right Back Button -->
+    <a href="1dashboard.html" class="back-button">Back</a>
+
+</body>
+</html>
+

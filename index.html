@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Law Firm Case Management System</title>
+    <link href="1dashboard.html" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #1a1a2e;
+            --color-secondary: #16213e;
+            --color-accent: #d4af37;
+            --color-accent-light: #e8c46d;
+            --color-text-primary: #1a1a2e;
+            --color-text-secondary: #666666;
+            --color-text-light: #999999;
+            --color-bg: #fafafa;
+            --color-card-bg: #ffffff;
+            --color-border: #e5e5e5;
+            --color-success: #2e7d32;
+            --color-danger: #c62828;
+            
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Work Sans', sans-serif;
+            
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.12);
+            --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.15);
+            
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated Background Elements */
+        .bg-decoration {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .bg-decoration-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--color-accent);
+            top: -200px;
+            left: -200px;
+            animation-delay: 0s;
+        }
+
+        .bg-decoration-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--color-accent-light);
+            bottom: -150px;
+            right: -150px;
+            animation-delay: 5s;
+        }
+
+        .bg-decoration-3 {
+            width: 200px;
+            height: 200px;
+            background: var(--color-accent);
+            top: 50%;
+            right: 10%;
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(30px, -30px) scale(1.1);
+            }
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
+        }
+
+        /* Main Container */
+        .login-container {
+            display: flex;
+            max-width: 1100px;
+            width: 100%;
+            background: var(--color-card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+            position: relative;
+            z-index: 1;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Left Panel - Branding */
+        .branding-panel {
+            flex: 1;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .branding-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4af37' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.3;
+        }
+
+        .logo-section {
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-icon-large {
+            width: 80px;
+            height: 80px;
+            background: var(--color-accent);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3);
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 12px 32px rgba(212, 175, 55, 0.5);
+            }
+        }
+
+        .brand-title {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-top: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeInLeft 0.6s ease-out forwards;
+        }
+
+        .feature-item:nth-child(1) { animation-delay: 0.3s; }
+        .feature-item:nth-child(2) { animation-delay: 0.5s; }
+        .feature-item:nth-child(3) { animation-delay: 0.7s; }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(212, 175, 55, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .feature-text {
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        /* Right Panel - Login Form */
+        .form-panel {
+            flex: 1;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .form-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-subtitle {
+            color: var(--color-text-secondary);
+            font-size: 1rem;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--color-text-primary);
+            font-size: 0.95rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid var(--color-border);
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--color-text-primary);
+            transition: var(--transition-smooth);
+            background: var(--color-bg);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: var(--color-text-light);
+        }
+
+        .input-icon-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-text-light);
+            font-size: 1.1rem;
+        }
+
+        .input-icon-wrapper .form-input {
+            padding-left: 3rem;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--color-text-secondary);
+            font-size: 1.1rem;
+            padding: 0.25rem;
+            transition: var(--transition-smooth);
+        }
+
+        .password-toggle:hover {
+            color: var(--color-accent);
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .checkbox-wrapper input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--color-accent);
+        }
+
+        .checkbox-label {
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .forgot-password {
+            color: var(--color-accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+        }
+
+        .forgot-password:hover {
+            color: var(--color-accent-light);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+            color: var(--color-primary);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: var(--color-bg);
+            color: var(--color-text-primary);
+            border: 2px solid var(--color-border);
+            margin-top: 1rem;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            border-color: var(--color-accent);
+        }
+
+        .divider {
+            text-align: center;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--color-border);
+        }
+
+        .divider-text {
+            background: var(--color-card-bg);
+            padding: 0 1rem;
+            color: var(--color-text-light);
+            font-size: 0.875rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Alert Messages */
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            display: none;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-success {
+            background: rgba(46, 125, 50, 0.1);
+            color: var(--color-success);
+            border: 1px solid rgba(46, 125, 50, 0.2);
+        }
+
+        .alert-error {
+            background: rgba(198, 40, 40, 0.1);
+            color: var(--color-danger);
+            border: 1px solid rgba(198, 40, 40, 0.2);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--color-card-bg);
+            border-radius: 16px;
+            padding: 2.5rem;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: var(--shadow-xl);
+            animation: modalSlideUp 0.4s ease-out;
+        }
+
+        @keyframes modalSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--color-text-secondary);
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            transition: var(--transition-smooth);
+        }
+
+        .modal-close:hover {
+            background: var(--color-bg);
+            color: var(--color-text-primary);
+        }
+
+        .modal-body {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-text {
+            color: var(--color-text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        /* Loading State */
+        .btn.loading {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            border-top-color: var(--color-primary);
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .branding-panel {
+                display: none;
+            }
+            
+            .login-container {
+                max-width: 500px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .form-panel {
+                padding: 2rem 1.5rem;
+            }
+            
+            .form-title {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Decorations -->
+    <div class="bg-decoration bg-decoration-1"></div>
+    <div class="bg-decoration bg-decoration-2"></div>
+    <div class="bg-decoration bg-decoration-3"></div>
+
+    <!-- Login Container -->
+    <div class="login-container">
+        <!-- Left Panel - Branding -->
+        <div class="branding-panel">
+            <div class="logo-section">
+                <div class="logo-icon-large">⚖</div>
+                <h1 class="brand-title">LawFirm CMS</h1>
+                <p class="brand-subtitle">Professional Case Management System with AI-Powered Legal Assistance</p>
+            </div>
+
+            <ul class="features-list">
+                <li class="feature-item">
+                    <div class="feature-icon">📁</div>
+                    <div class="feature-text">Centralized case management and document tracking</div>
+                </li>
+                <li class="feature-item">
+                    <div class="feature-icon">🤖</div>
+                    <div class="feature-text">AI-powered legal drafting and research assistant</div>
+                </li>
+                <li class="feature-item">
+                    <div class="feature-icon">📅</div>
+                    <div class="feature-text">Automated hearing reminders and calendar sync</div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Right Panel - Login Form -->
+        <div class="form-panel">
+            <div class="form-header">
+                <h2 class="form-title">Welcome</h2>
+                <p class="form-subtitle">Please sign in to access your account</p>
+            </div>
+
+            <!-- Alert Messages -->
+            <div id="alertSuccess" class="alert alert-success">
+                <strong>Success!</strong> Password reset link sent to your email.
+            </div>
+            <div id="alertError" class="alert alert-error">
+                <strong>Error!</strong> <span id="errorMessage">Invalid credentials. Please try again.</span>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address</label>
+                    <div class="input-icon-wrapper">
+                        <span class="input-icon">📧</span>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            class="form-input" 
+                            placeholder="partner@lawfirm.com"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="input-icon-wrapper">
+                        <span class="input-icon">🔒</span>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            class="form-input" 
+                            placeholder="Enter your password"
+                            required
+                        >
+                        <button type="button" class="password-toggle" id="togglePassword">
+                            👁️
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-options">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" id="remember" name="remember">
+                        <label for="remember" class="checkbox-label">Remember me</label>
+                    </div>
+                    <a href="#" class="forgot-password" id="forgotPasswordLink">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="loginBtn">
+                    Sign In
+                </button>
+
+                <div class="divider">
+                    <span class="divider-text">New to the platform?</span>
+                </div>
+
+                <button type="button" class="btn btn-secondary">
+                    Contact Administrator
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div class="modal" id="forgotPasswordModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Reset Password</h3>
+                <button type="button" class="modal-close" id="closeModal">×</button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-text">
+                    Enter your email address and we'll send you instructions to reset your password.
+                </p>
+                <form id="forgotPasswordForm">
+                    <div class="form-group">
+                        <label for="resetEmail" class="form-label">Email Address</label>
+                        <div class="input-icon-wrapper">
+                            <span class="input-icon">📧</span>
+                            <input 
+                                type="email" 
+                                id="resetEmail" 
+                                class="form-input" 
+                                placeholder="partner@lawfirm.com"
+                                required
+                            >
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="resetBtn">
+                        Send Reset Link
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const loginForm = document.getElementById('loginForm');
+        const forgotPasswordModal = document.getElementById('forgotPasswordModal');
+        const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+        const closeModal = document.getElementById('closeModal');
+        const forgotPasswordForm = document.getElementById('forgotPasswordForm');
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        const alertSuccess = document.getElementById('alertSuccess');
+        const alertError = document.getElementById('alertError');
+        const errorMessage = document.getElementById('errorMessage');
+        const loginBtn = document.getElementById('loginBtn');
+        const resetBtn = document.getElementById('resetBtn');
+
+        // Demo credentials
+        const validCredentials = {
+            'admin@lawfirm.com': 'admin123',
+            'partner@lawfirm.com': 'partner123',
+            'associate@lawfirm.com': 'associate123'
+        };
+
+        // Toggle Password Visibility
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
+            this.textContent = type === 'password' ? '👁️' : '👁️‍🗨️';
+        });
+
+        // Show/Hide Forgot Password Modal
+        forgotPasswordLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            forgotPasswordModal.classList.add('show');
+        });
+
+        closeModal.addEventListener('click', function() {
+            forgotPasswordModal.classList.remove('show');
+        });
+
+        // Close modal when clicking outside
+        forgotPasswordModal.addEventListener('click', function(e) {
+            if (e.target === forgotPasswordModal) {
+                forgotPasswordModal.classList.remove('show');
+            }
+        });
+
+        // Login Form Submit
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Hide previous alerts
+            alertSuccess.classList.remove('show');
+            alertError.classList.remove('show');
+            
+            // Show loading state
+            loginBtn.classList.add('loading');
+            loginBtn.innerHTML = '<span class="spinner"></span> Signing In...';
+            
+            // Simulate API call
+            setTimeout(() => {
+                // Check credentials
+                if (validCredentials[email] && validCredentials[email] === password) {
+                    // Success - redirect to dashboard
+                    alertSuccess.textContent = 'Login successful! Redirecting to dashboard...';
+                    alertSuccess.classList.add('show');
+                    
+                    setTimeout(() => {
+                        // Store user info in sessionStorage
+                        sessionStorage.setItem('userEmail', email);
+                        sessionStorage.setItem('isLoggedIn', 'true');
+                        
+                        // Redirect to dashboard
+                        window.location.href = '1dashboard.html';
+                    }, 1500);
+                } else {
+                    // Error
+                    loginBtn.classList.remove('loading');
+                    loginBtn.innerHTML = 'Sign In';
+                    
+                    if (!validCredentials[email]) {
+                        errorMessage.textContent = 'Email address not found.';
+                    } else {
+                        errorMessage.textContent = 'Incorrect password. Please try again.';
+                    }
+                    alertError.classList.add('show');
+                }
+            }, 1500);
+        });
+
+        // Forgot Password Form Submit
+        forgotPasswordForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const resetEmail = document.getElementById('resetEmail').value;
+            
+            // Show loading state
+            resetBtn.classList.add('loading');
+            resetBtn.innerHTML = '<span class="spinner"></span> Sending...';
+            
+            // Simulate API call
+            setTimeout(() => {
+                resetBtn.classList.remove('loading');
+                resetBtn.innerHTML = 'Send Reset Link';
+                
+                // Close modal
+                forgotPasswordModal.classList.remove('show');
+                
+                // Show success message
+                alertError.classList.remove('show');
+                alertSuccess.textContent = `Password reset link sent to ${resetEmail}. Please check your inbox.`;
+                alertSuccess.classList.add('show');
+                
+                // Reset form
+                forgotPasswordForm.reset();
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    alertSuccess.classList.remove('show');
+                }, 5000);
+            }, 1500);
+        });
+
+        // Auto-hide alerts after 5 seconds
+        function autoHideAlert(alertElement) {
+            setTimeout(() => {
+                alertElement.classList.remove('show');
+            }, 5000);
+        }
+
+        // Demo credentials hint (remove in production)
+        console.log('%c Demo Credentials', 'background: #d4af37; color: #1a1a2e; font-size: 16px; font-weight: bold; padding: 10px;');
+        console.log('Email: admin@lawfirm.com | Password: admin123');
+        console.log('Email: partner@lawfirm.com | Password: partner123');
+        console.log('Email: associate@lawfirm.com | Password: associate123');
+
+        // Show demo credentials on page (remove in production)
+        setTimeout(() => {
+            const demoHint = document.createElement('div');
+            demoHint.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                left: 20px;
+                background: rgba(212, 175, 55, 0.95);
+                color: #1a1a2e;
+                padding: 15px 20px;
+                border-radius: 8px;
+                font-size: 0.85rem;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                z-index: 10000;
+                font-family: var(--font-body);
+                max-width: 300px;
+                animation: slideUp 0.5s ease-out;
+            `;
+            demoHint.innerHTML = `
+                <strong style="display: block; margin-bottom: 8px;">Demo Credentials:</strong>
+                📧 admin@lawfirm.com<br>
+                🔒 admin123<br>
+                <button onclick="this.parentElement.remove()" style="margin-top: 10px; padding: 5px 15px; background: #1a1a2e; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">Got it!</button>
+            `;
+            document.body.appendChild();
+        }, 2000);
+    </script>
+    
+</body>
+</html>
