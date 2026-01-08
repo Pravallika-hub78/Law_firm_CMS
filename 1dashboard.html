@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>LawFirm CMS | Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",system-ui,sans-serif}
+body{background:#020617;color:#e5e7eb;display:flex;min-height:100vh}
+
+/* Sidebar */
+    .sidebar {
+      width: 260px;
+      background: linear-gradient(180deg, #020617, #0f172a);
+      border-right: 1px solid #1e293b;
+      padding: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .brand svg {
+      width: 36px;
+      height: 36px;
+      stroke: #facc15;
+    }
+
+    .brand h2 {
+      font-family: Georgia, serif;
+      font-size: 20px;
+    }
+
+    .nav a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 8px;
+      color: #cbd5f5;
+      text-decoration: none;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .nav a:hover {
+      background: #1e293b;
+      color: #facc15;
+    }
+
+
+/* Main */
+.main{flex:1;display:flex;flex-direction:column}
+
+/* Topbar */
+.topbar{
+  height:64px;
+  background:#020617;
+  border-bottom:1px solid #1e293b;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 24px;
+}
+.top-left,
+.top-right{
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+
+/* Search Bar */
+.search-box{position:relative}
+.search-box input{
+  width:260px;
+  padding:8px 36px 8px 12px;
+  background:#020617;
+  border:1px solid #1e293b;
+  border-radius:8px;
+  color:#e5e7eb;
+  font-size:13px;
+}
+.search-box input:focus{
+  outline:none;
+  border-color:#facc15;
+}
+.search-box i{
+  position:absolute;
+  right:10px;
+  top:50%;
+  transform:translateY(-50%);
+  width:16px;
+  height:16px;
+  color:#94a3b8;
+}
+
+/* Profile */
+.profile{display:flex;align-items:center;gap:10px;cursor:pointer}
+.avatar{width:32px;height:32px;border-radius:50%;background:#facc15;color:#020617;display:flex;align-items:center;justify-content:center;font-weight:bold}
+
+/* Notification */
+.notification{position:relative;cursor:pointer}
+.notification i{stroke:#facc15}
+.notif-count{position:absolute;top:-5px;right:-6px;background:#ef4444;color:#fff;font-size:10px;padding:2px 6px;border-radius:50%}
+.notif-panel{
+  position:absolute;
+  right:0;
+  top:40px;
+  background:#edeef1;
+  border:1px solid #1e293b;
+  border-radius:10px;
+  width:260px;
+  display:none;
+  z-index:20;
+}
+.notif-panel div{padding:10px;border-bottom:1px solid #1e293b;font-size:13px}
+.notif-panel div:last-child{border-bottom:none}
+.notif-text {
+  color: #000000; /* black */
+}
+
+
+/* Content */
+.content{padding:24px}
+.card{background:#020617;border:1px solid #1e293b;border-radius:14px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.section-title{font-size:16px;margin-bottom:12px;display:flex;gap:8px;align-items:center}
+
+/* Dashboard Rows */
+.row{margin-bottom:24px}
+.row-grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.row-grid-5{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+.row-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+/* Metric Cards */
+.metric h4{font-size:13px;color:#94a3b8}
+.metric p{font-size:24px;font-weight:bold;margin-top:6px}
+
+/* Tables */
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:10px;border-bottom:1px solid #1e293b;text-align:left}
+th{color:#94a3b8;font-weight:500}
+
+/* Calendar */
+.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;font-size:12px}
+.calendar span{padding:8px;background:#020617;border:1px solid #1e293b;border-radius:6px;text-align:center}
+.today{border-color:#facc15;color:#facc15}
+.card[data-link]:hover {
+  border-color: #facc15;
+  transform: translateY(-4px);
+}
+
+.card[data-link]::after {
+  content: "→";
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  opacity: 0.4;
+}
+.fab {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 56px;
+      height: 56px;
+      background: #2563eb;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(37,99,235,0.4);
+    }
+
+.fab-menu {
+  position: fixed;
+  bottom: 90px;
+  right: 24px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.15);
+  display: none;
+  overflow: hidden; 
+}
+.fab-menu a {
+  display: block;
+  padding: 12px 16px;
+  text-decoration: none;
+  color: #1f2937;
+  border-bottom: 1px solid #e5e7eb;
+}
+.fab-menu a:hover { background: #f1f5f9; }
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand">
+      <i data-lucide="scale"></i>
+      <h2>LawFirm CMS</h2>
+    </div>
+
+    <nav class="nav">
+      <a href="1dashboard.html"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+      <a href="1.cases.html"><i data-lucide="briefcase"></i> Cases</a>
+      <a href="2.hearings.html"><i data-lucide="calendar"></i> Hearings</a>
+      <a href="3.tasks.html"><i data-lucide="check-square"></i> Tasks</a>
+      <a href="4.documents.html"><i data-lucide="file-text"></i> Documents</a>
+      <a href="5.evidence.html"><i data-lucide="search"></i> Evidence</a>
+      <a href="6.clients.html"><i data-lucide="users"></i> Clients</a>
+      <a href="7.ai.html"><i data-lucide="brain"></i> AI Assistant</a>
+      <a href="8.billing.html"><i data-lucide="dollar-sign"></i> Billing</a>
+      <a href="9.admin.html"><i data-lucide="shield-check"></i> Admin</a>
+      <a href="index.html"><i data-lucide="log-out"></i> Logout</a>
+    </nav>
+  </aside>
+
+<!-- MAIN -->
+<div class="main">
+
+<header class="topbar">
+
+  <!-- LEFT -->
+  <div class="top-left">
+    <div class="search-box">
+      <input id="searchInput" type="text" placeholder="Search cases, clients, documents..." />
+        <i data-lucide="search"></i>
+    <div id="suggestBox" class="suggest-box"></div>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="top-right">
+    <div class="notification" onclick="toggleNotif()">
+      <i data-lucide="bell"></i>
+      <span class="notif-count">3</span>
+      <div class="notif-panel" id="notifPanel">
+        <div>🔔 <span class="notif-text">Hearing at 10:30 AM</span></div>
+        <div>📄 <span class="notif-text">Draft pending approval</span></div>
+        <div>💰 <span class="notif-text">Invoice overdue</span></div>
+      </div>
+    </div>
+
+    <div class="profile" >
+      <div class="avatar">A</div>
+      <span>Profile</span>
+      <nav>
+        <a href="userprofile.html"><i data-lucide="chevron-down">A</i></a>
+      </nav>
+    </div>
+  </div>
+
+</header>
+
+<main class="content">
+
+<section class="row row-grid-3">
+  <div class="card" data-link="3.tasks.html">
+    <h3 class="section-title">Today’s Agenda</h3>
+    <ul>
+      <li>• Hearing preparation</li>
+      <li>• Client meeting</li>
+      <li>• Draft submission</li>
+    </ul>
+  </div>
+
+  <div class="card" data-link="2.hearings.html">
+    <h3 class="section-title">Today’s Hearings</h3>
+    <p>3 Scheduled</p>
+  </div>
+
+  <div class="card">
+    <h3 class="section-title">Monthly Calendar</h3>
+    <div class="calendar">
+      <span>1</span><span>2</span><span class="today">3</span><span>4</span><span>5</span><span>6</span><span>7</span>
+    </div>
+  </div>
+</section>
+
+<section class="row row-grid-5">
+  <div class="card metric" data-link="1.cases.html"><h4>Active Cases</h4><p>124</p></div>
+  <div class="card metric" data-link="7.ai.html"><h4>Pending Drafts</h4><p>9</p></div>
+  <div class="card metric" data-link="8.billing.html"><h4>Awaiting Payment</h4><p>₹1.2L</p></div>
+  <div class="card metric" data-link="8.billing.html"><h4>Overdue Bills</h4><p>₹45K</p></div>
+  <div class="card metric" data-link="8.billing.html"><h4>Revenue This Month</h4><p>₹3.2L</p></div>
+</section>
+<!-- ROW 3 -->
+<section class="row row-grid-2">
+  <div class="card" data-link="2.hearings.html">
+    <h3 class="section-title">Upcoming Hearings</h3>
+    <table>
+      <tr><th>Case</th><th>Date</th><th>Court</th></tr>
+      <tr><td>State vs Kumar</td><td>10 Jan</td><td>HC-3</td></tr>
+      <tr><td>ABC vs XYZ</td><td>12 Jan</td><td>DC-1</td></tr>
+    </table>
+  </div>
+
+  <div class="card" data-link="3.tasks.html">
+    <h3 class="section-title" >Pending Tasks</h3>
+    <table>
+      <tr><th>Task</th><th>Due</th></tr>
+      <tr><td>Draft Review</td><td>Today</td></tr>
+      <tr><td>Evidence Upload</td><td>Tomorrow</td></tr>
+    </table>
+  </div>
+</section>
+
+</main>
+</div>
+<!-- Floating Action Button -->
+<div class="fab" onclick="toggleFab()">+</div>
+<div class="fab-menu" id="fabMenu">
+  <a href="newcaseform.html">New Case</a>
+  <a href="newhearingsform.html">Add Hearing</a>
+  <a href="uploaddocument.html">Upload Document</a>
+  <a href="newtaskform.html">Add Task</a>
+  <a href="#">Generate AI Draft</a>
+</div>
+
+<script>
+lucide.createIcons();
+    const suggestions = [
+  "Case #1024 - Rakesh Kumar",
+  "Client: Suresh Patil",
+  "Document: FIR Report.pdf",
+  "Client: Ayesha Sharma",
+  "Case #2048 - Property Dispute",
+  "Hearing Calendar",
+  "Pending Tasks"
+  ];  
+lucide.createIcons();
+function toggleNotif(){
+  const panel=document.getElementById('notifPanel');
+  panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+}
+
+document.querySelectorAll('.card[data-link]').forEach(card => {
+  card.addEventListener('click', () => {
+    const link = card.getAttribute('data-link');
+    if (link) {
+      window.location.href = link;
+    }
+  });
+});
+function toggleFab() {
+      const menu = document.getElementById('fabMenu');
+      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    }
+
+
+</script>
+
+</body>
+</html>
+
+
+
