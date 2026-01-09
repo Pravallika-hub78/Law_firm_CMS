@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LawFirm CMS | New Hearing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", system-ui, sans-serif;
+    }
+
+    body {
+      background: #020617;
+      color: #e5e7eb;
+      display: flex;
+      min-height: 100vh;
+    }
+    .brand{display:flex;align-items:center;gap:12px;margin-bottom:30px}
+    .brand svg{width:34px;height:34px;stroke:#facc15}
+
+    /* Sidebar */
+    .sidebar {
+      width: 260px;
+      background: linear-gradient(180deg, #020617, #0f172a);
+      border-right: 1px solid #1e293b;
+      padding: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .brand h2 {
+      font-family: Georgia, serif;
+      font-size: 20px;
+    }
+
+    .nav a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 8px;
+      color: #cbd5f5;
+      text-decoration: none;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .nav a:hover {
+      background: #1e293b;
+      color: #facc15;
+    }
+
+    /* Main */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      height: 64px;
+      background: #020617;
+      border-bottom: 1px solid #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0 24px;
+    }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #facc15;
+      color: #020617;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    /* Content */
+    .content {
+      padding: 32px;
+      max-width: 900px;
+    }
+
+    .page-title {
+      font-size: 26px;
+      margin-bottom: 6px;
+    }
+
+    .page-subtitle {
+      color: #94a3b8;
+      font-size: 14px;
+      margin-bottom: 28px;
+    }
+
+    .card {
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    .section-title {
+      font-size: 16px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Form */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-bottom: 6px;
+    }
+
+    input,
+    select,
+    textarea {
+      background: #020617;
+      border: 1px solid #1e293b;
+      color: #e5e7eb;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #facc15;
+    }
+
+    /* Actions */
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .btn {
+      padding: 12px 22px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-secondary {
+      background: #1e293b;
+      color: #e5e7eb;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #facc15, #f59e0b);
+      color: #020617;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.9;
+    }
+    .back-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #007bff;
+      color: white;
+      padding: 10px 16px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-family: Arial, sans-serif;
+    }
+    .back-button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="brand">
+    <i data-lucide="scale"></i>
+    <h2>LawFirm CMS</h2>
+  </div>
+
+  <nav class="nav">
+    <a href="1dashboard.html"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+    <a href="1.cases.html"><i data-lucide="briefcase"></i> Cases</a>
+    <a href="2.hearings.html" class="active"><i data-lucide="calendar"></i> Hearings</a>
+    
+  
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="profile">
+      <div class="avatar">A</div>
+      <span>Profile</span>
+      <i data-lucide="chevron-down"></i>
+    </div>
+  </header>
+
+  <!-- CONTENT -->
+  <main class="content">
+    <div class="page-title">Schedule New Hearing</div>
+    <div class="page-subtitle">
+      Add hearing details linked to a case and court
+    </div>
+
+    <!-- HEARING DETAILS -->
+    <div class="card">
+      <div class="section-title">
+        <i data-lucide="calendar-plus"></i>
+        Hearing Details
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group full">
+          <label>Case</label>
+          <select>
+            <option>Select Case</option>
+            <option>State vs Rakesh Kumar</option>
+            <option>ABC Corp vs XYZ Ltd</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Court</label>
+          <select>
+            <option>High Court</option>
+            <option>District Court</option>
+            <option>Family Court</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Court Number</label>
+          <input type="text" placeholder="Court No. 3" />
+        </div>
+
+        <div class="form-group">
+          <label>Hearing Date</label>
+          <input type="date" />
+        </div>
+
+        <div class="form-group">
+          <label>Hearing Time</label>
+          <input type="time" />
+        </div>
+
+        <div class="form-group">
+          <label>Hearing Type</label>
+          <select>
+            <option>Admission</option>
+            <option>Final Hearing</option>
+            <option>Arguments</option>
+            <option>Compliance</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Status</label>
+          <select>
+            <option>Upcoming</option>
+            <option>Ongoing</option>
+            <option>Completed</option>
+          </select>
+        </div>
+
+        <div class="form-group full">
+          <label>Notes</label>
+          <textarea placeholder="Instructions, preparation notes, documents required"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="actions">
+      <button class="btn btn-secondary">Cancel</button>
+      <button class="btn btn-primary">Save Hearing</button>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  lucide.createIcons();
+</script>
+<!-- Bottom-Right Back Button -->
+    <a href="2.hearings.html" class="back-button">Back</a>
+
+</body>
+</html>

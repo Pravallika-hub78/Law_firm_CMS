@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>View Invoice | LawFirm CMS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+body{
+  background:#020617;color:#e5e7eb;
+  font-family:"Segoe UI",system-ui,sans-serif;
+  margin:0;display:flex;min-height:100vh
+}
+
+/* Sidebar */
+.sidebar{
+  width:260px;background:linear-gradient(180deg,#020617,#0f172a);
+  border-right:1px solid #1e293b;padding:20px
+}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:30px}
+.nav a{
+  display:flex;gap:12px;padding:12px;
+  border-radius:8px;color:#cbd5f5;
+  text-decoration:none;font-size:14px;margin-bottom:6px
+}
+.nav a:hover,.nav a.active{
+  background:#1e293b;color:#facc15
+}
+
+/* Main */
+.main{flex:1;display:flex;flex-direction:column}
+.topbar{
+  height:64px;border-bottom:1px solid #1e293b;
+  display:flex;align-items:center;
+  justify-content:space-between;padding:0 24px
+}
+.content{padding:24px}
+
+/* Cards */
+.card{
+  background:#020617;border:1px solid #1e293b;
+  border-radius:14px;padding:20px;
+  margin-bottom:20px
+}
+
+/* Invoice Header */
+.invoice-header{
+  display:flex;justify-content:space-between;
+  align-items:flex-start;gap:20px
+}
+.invoice-header h2{margin-bottom:6px}
+.status{
+  padding:6px 14px;border-radius:14px;
+  font-size:12px;font-weight:600
+}
+.paid{background:rgba(34,197,94,.15);color:#22c55e}
+.pending{background:#1e293b;color:#facc15}
+
+/* Info Grid */
+.info-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:16px;margin-top:20px
+}
+.info label{
+  font-size:12px;color:#94a3b8
+}
+.info p{
+  font-size:14px;margin-top:4px
+}
+
+/* Table */
+table{width:100%;border-collapse:collapse;margin-top:20px}
+th,td{
+  padding:14px;border-bottom:1px solid #1e293b;
+  font-size:13px;text-align:left
+}
+th{color:#94a3b8}
+
+/* Totals */
+.totals{
+  max-width:360px;margin-left:auto;margin-top:20px
+}
+.totals div{
+  display:flex;justify-content:space-between;
+  padding:8px 0;font-size:13px
+}
+.totals strong{font-size:16px}
+
+/* Buttons */
+.actions{
+  display:flex;justify-content:flex-end;
+  gap:12px;margin-top:20px
+}
+.btn{
+  padding:10px 16px;border-radius:8px;
+  font-size:13px;cursor:pointer;
+  border:1px solid #1e293b;
+  background:#020617;color:#e5e7eb;
+  display:flex;align-items:center;gap:6px
+}
+.btn.primary{
+  background:#2563eb;border-color:#2563eb;color:#fff
+}
+.btn.success{
+  background:#16a34a;border-color:#16a34a;color:#fff
+}
+.btn.secondary{
+  background:#1e293b
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="brand">
+    <i data-lucide="scale"></i>
+    <h2>LawFirm CMS</h2>
+  </div>
+
+  <nav class="nav">
+    <a href="1dashboard.html"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+    <a href="1.cases.html"><i data-lucide="briefcase"></i> Cases</a>
+    <a href="8.billing.html"><i data-lucide="dollar-sign"></i> Billing</a>
+    <a class="active"><i data-lucide="file-text"></i> Invoice</a>
+    
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+
+<header class="topbar">
+  <h3>Invoice Details</h3>
+  <div class="actions">
+    <button class="btn secondary">
+      <i data-lucide="printer"></i> Print
+    </button>
+    <button class="btn primary">
+      <i data-lucide="download"></i> Download PDF
+    </button>
+  </div>
+</header>
+
+<main class="content">
+
+<!-- INVOICE SUMMARY -->
+<section class="card invoice-header">
+  <div>
+    <h2>Invoice #INV-1024</h2>
+    <p style="color:#94a3b8;font-size:13px">Issued on 01 Jan 2026</p>
+  </div>
+  <span class="status paid">PAID</span>
+</section>
+
+<!-- CLIENT & CASE INFO -->
+<section class="card">
+<div class="info-grid">
+
+  <div class="info">
+    <label>Client</label>
+    <p>Rakesh Kumar</p>
+  </div>
+
+  <div class="info">
+    <label>Case</label>
+    <p>State vs Rakesh Kumar</p>
+  </div>
+
+  <div class="info">
+    <label>Invoice Date</label>
+    <p>01 Jan 2026</p>
+  </div>
+
+  <div class="info">
+    <label>Due Date</label>
+    <p>10 Jan 2026</p>
+  </div>
+
+</div>
+</section>
+
+<!-- LINE ITEMS -->
+<section class="card">
+<h3>Billing Details</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Description</th>
+  <th>Qty</th>
+  <th>Rate</th>
+  <th>Amount</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Legal Consultation</td>
+  <td>1</td>
+  <td>₹</td>
+  <td>₹45,000</td>
+  <td>₹45,000</td>
+</tr>
+<tr>
+  <td>Court Appearance</td>
+  <td>1</td>
+  <td>₹25,000</td>
+  <td>₹25,000</td>
+</tr>
+</tbody>
+</table>
+
+<div class="totals">
+  <div><span>Subtotal</span><span>₹70,000</span></div>
+  <div><span>GST (18%)</span><span>₹12,600</span></div>
+  <div><strong>Total</strong><strong>₹82,600</strong></div>
+</div>
+
+</section>
+
+<!-- ACTIONS -->
+<div class="actions">
+  <button class="btn success">
+    <i data-lucide="check-circle"></i> Mark as Paid
+  </button>
+</div>
+
+</main>
+</div>
+
+<script>
+lucide.createIcons();
+</script>
+
+</body>
+</html>

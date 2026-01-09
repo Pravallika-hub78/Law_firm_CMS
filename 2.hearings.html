@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>LawFirm CMS | Hearings</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",system-ui,sans-serif}
+body{background:#020617;color:#e5e7eb;display:flex;min-height:100vh}
+
+/* Sidebar */
+.sidebar{width:260px;background:linear-gradient(180deg,#020617,#0f172a);border-right:1px solid #1e293b;padding:20px}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:30px}
+.brand svg{stroke:#facc15;width:36px;height:36px}
+.nav a{display:flex;align-items:center;gap:12px;padding:12px;border-radius:8px;color:#cbd5f5;text-decoration:none;font-size:14px;margin-bottom:6px}
+.nav a:hover,.nav a.active{background:#1e293b;color:#facc15}
+
+/* Main */
+.main{flex:1;display:flex;flex-direction:column}
+
+/* Topbar */
+.topbar{height:64px;background:#020617;border-bottom:1px solid #1e293b;display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+.topbar button{background:#2563eb;color:#fff;border:none;padding:8px 14px;border-radius:8px;cursor:pointer}
+
+/* Content */
+.content{padding:24px}
+
+/* Cards */
+.card{background:#020617;border:1px solid #1e293b;border-radius:14px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,.4);margin-bottom:20px}
+
+/* Calendar */
+.calendar-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+.day{background:#020617;border:1px solid #1e293b;border-radius:10px;padding:10px;min-height:90px;cursor:pointer}
+.day:hover{border-color:#facc15}
+
+/* Hearing List */
+.hearing-item{padding:10px;border:1px solid #1e293b;border-radius:10px;margin-bottom:10px}
+.hearing-item button{margin-top:6px;background:#1e293b;color:#fff;border:none;padding:4px 10px;border-radius:6px;cursor:pointer}
+
+/* Modal */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:1000}
+.modal-box{background:#020617;border:1px solid #1e293b;border-radius:14px;padding:20px;width:420px}
+.modal-box input{width:100%;padding:10px;margin-bottom:10px;background:#020617;border:1px solid #1e293b;color:#fff;border-radius:8px}
+.modal-actions{display:flex;gap:10px}
+.modal-actions button{flex:1;padding:10px;border:none;border-radius:8px;cursor:pointer}
+.save-btn{background:#2563eb;color:#fff}
+.cancel-btn{background:#1e293b;color:#fff}
+</style>
+</head>
+
+<body>
+
+<aside class="sidebar">
+  <div class="brand">
+    <i data-lucide="scale"></i>
+    <h2>LawFirm CMS</h2>
+  </div>
+  <nav class="nav">
+    <a href="1dashboard.html"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+    <a href="1.cases.html"><i data-lucide="briefcase"></i> Cases</a>
+    <a class="active"><i data-lucide="calendar"></i> Hearings</a>
+  </nav>
+</aside>
+
+<div class="main">
+
+<header class="topbar">
+  <h3>Hearings</h3>
+  <button onclick="openHearingForm()">+ New Hearing</button>
+</header>
+
+<main class="content">
+
+<div class="card">
+  <div class="calendar-header">
+    <button onclick="changeMonth(-1)">◀</button>
+    <h2 id="monthYear"></h2>
+    <button onclick="changeMonth(1)">▶</button>
+  </div>
+  <div class="calendar-grid" id="calendarDays"></div>
+</div>
+
+<div class="card" id="detailsCard" style="display:none">
+  <h3 id="selectedDateTitle"></h3>
+  <div id="hearingList"></div>
+</div>
+
+</main>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="hearingModal">
+  <div class="modal-box">
+    <h3 id="modalTitle">New Hearing</h3>
+    <input id="hCase" placeholder="Case Name">
+    <input id="hCourt" placeholder="Court Name">
+    <input id="hTime" placeholder="Time (10:30 AM)">
+    <input id="hDate" type="date">
+    <div class="modal-actions">
+      <button class="save-btn" onclick="saveHearing()">Save</button>
+      <button class="cancel-btn" onclick="closeHearingForm()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+lucide.createIcons();
+
+const hearings = {};
+let currentDate = new Date();
+let editIndex = null;
+
+function renderCalendar(){
+  const y=currentDate.getFullYear(), m=currentDate.getMonth();
+  monthYear.innerText=currentDate.toLocaleString("default",{month:"long",year:"numeric"});
+  calendarDays.innerHTML="";
+
+  let first=new Date(y,m,1).getDay(); first=first===0?6:first-1;
+  for(let i=0;i<first;i++) calendarDays.innerHTML+=`<div></div>`;
+
+  const days=new Date(y,m+1,0).getDate();
+  for(let d=1;d<=days;d++){
+    const key=`${y}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+    calendarDays.innerHTML+=`
+      <div class="day" onclick="openDetails('${key}')">
+        <strong>${d}</strong><br>
+        ${hearings[key]?`<small>${hearings[key].length} Hearing(s)</small>`:""}
+      </div>`;
+  }
+}
+
+function openDetails(date){
+  if(!hearings[date]) return;
+  detailsCard.style.display="block";
+  selectedDateTitle.innerText="Hearings on "+date;
+  hearingList.innerHTML=hearings[date].map((h,i)=>`
+    <div class="hearing-item">
+      <strong>${h.case}</strong><br>
+      ${h.time} • ${h.court}<br>
+      <button onclick="editHearing('${date}',${i})">Edit</button>
+    </div>`).join("");
+}
+
+function openHearingForm(){
+  editIndex=null;
+  modalTitle.innerText="New Hearing";
+  hearingModal.style.display="flex";
+}
+
+function editHearing(date,index){
+  const h=hearings[date][index];
+  hCase.value=h.case;
+  hCourt.value=h.court;
+  hTime.value=h.time;
+  hDate.value=date;
+  editIndex=index;
+  hearingModal.style.display="flex";
+}
+
+function closeHearingForm(){hearingModal.style.display="none";}
+
+function saveHearing(){
+  const date=hDate.value;
+  if(!hearings[date]) hearings[date]=[];
+  if(editIndex!==null){
+    hearings[date][editIndex]={case:hCase.value,court:hCourt.value,time:hTime.value};
+  }else{
+    hearings[date].push({case:hCase.value,court:hCourt.value,time:hTime.value});
+  }
+  editIndex=null;
+  closeHearingForm();
+  renderCalendar();
+  openDetails(date);
+}
+
+function changeMonth(step){currentDate.setMonth(currentDate.getMonth()+step);renderCalendar();}
+
+renderCalendar();
+</script>
+
+</body>
+</html>
+
+
+
+

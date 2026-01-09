@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>LawFirm CMS | Tasks</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",system-ui;}
+body{background:#020617;color:#e5e7eb;display:flex;min-height:100vh}
+
+/* Sidebar */
+.sidebar{width:260px;background:linear-gradient(180deg,#020617,#0f172a);border-right:1px solid #1e293b;padding:20px}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:30px}
+.brand svg{width:34px;height:34px;stroke:#facc15}
+.nav a{display:flex;gap:12px;padding:12px;border-radius:8px;color:#cbd5f5;text-decoration:none;font-size:14px;margin-bottom:6px}
+.nav a:hover,.nav a.active{background:#1e293b;color:#facc15}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:30px}
+.brand svg{width:34px;height:34px;stroke:#facc15}
+
+/* Main */
+.main{flex:1;display:flex;flex-direction:column}
+
+/* Topbar */
+.topbar{
+  height:64px;background:#020617;border-bottom:1px solid #1e293b;
+  display:flex;align-items:center;justify-content:space-between;padding:0 24px
+}
+.topbar button{
+  background:#2563eb;color:#fff;border:none;
+  padding:8px 14px;border-radius:8px;cursor:pointer;font-size:13px
+}
+
+/* Content */
+.content{padding:24px}
+
+/* Layout */
+.row1{margin-bottom:20px}
+.row2{display:grid;grid-template-columns:1.2fr 2fr;gap:20px}
+
+/* Cards */
+.card{background:#020617;border:1px solid #1e293b;border-radius:14px;padding:18px}
+
+/* Task List */
+.task-item{padding:12px;border-radius:10px;border:1px solid #1e293b;margin-bottom:10px}
+.task-item:hover{border-color:#facc15}
+.task-title{font-size:14px;font-weight:600}
+.task-meta{font-size:12px;color:#94a3b8;margin-top:4px}
+.task-actions{margin-top:8px}
+.task-actions button{
+  background:#1e293b;color:#facc15;border:none;
+  padding:4px 10px;border-radius:6px;cursor:pointer;font-size:12px
+}
+
+/* Badges */
+.badge{font-size:11px;padding:4px 10px;border-radius:12px;font-weight:600}
+.high{background:rgba(239,68,68,.15);color:#ef4444}
+.medium{background:rgba(250,204,21,.15);color:#facc15}
+.low{background:rgba(34,197,94,.15);color:#22c55e}
+.open{background:#1e293b;color:#facc15}
+.done{background:rgba(34,197,94,.15);color:#22c55e}
+
+/* Modal */
+.modal{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:rgba(0,0,0,0.6);
+  display:none;align-items:center;justify-content:center;z-index:1000
+}
+.modal-content{
+  width:420px;background:#020617;
+  border:1px solid #1e293b;border-radius:14px;padding:20px
+}
+.modal-content h3{margin-bottom:16px}
+.modal-content input,.modal-content textarea,.modal-content select{
+  width:100%;margin-bottom:12px;padding:10px;
+  background:#020617;border:1px solid #1e293b;
+  color:#e5e7eb;border-radius:8px
+}
+.modal-actions{
+  display:flex;gap:10px
+}
+.modal-actions button{
+  flex:1;border:none;padding:10px;border-radius:8px;cursor:pointer
+}
+.save-btn{background:#2563eb;color:#fff}
+.cancel-btn{background:#1e293b;color:#e5e7eb}
+/* Filter Section */
+.filters{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:16px;
+  margin-bottom:20px
+}
+.filters input,.filters select{
+  background:#020617;border:1px solid #1e293b;
+  color:#e5e7eb;padding:10px;border-radius:8px;font-size:13px
+}
+.filter-actions{
+  display:flex;gap:10px;align-items:flex-end
+}
+.filters button{
+  background:#1e293b;
+  color:#facc15;
+  border:none;
+  border-radius:8px;
+  padding:8px 14px;
+  cursor:pointer;
+  font-size:13px
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="brand">
+    <i data-lucide="scale"></i>
+    <h2>LawFirm CMS</h2>
+  </div>
+  <nav class="nav">
+    <a href="1dashboard.html"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+    <a href="1.cases.html"><i data-lucide="briefcase"></i> Cases</a>
+    <a href="tasks.html" class="active"><i data-lucide="check-square"></i> Tasks</a>
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+
+<header class="topbar">
+  <h3>Task Management</h3>
+  <button onclick="openNewTask()">+ New Task</button>
+</header>
+
+<main class="content">
+  <!-- ROW 1 : FILTERS -->
+<div class="row1 card">
+  <div class="filters">
+    <select>
+      <option value="">All Priorities</option>
+      <option>High</option>
+      <option>Medium</option>
+      <option>Low</option>
+    </select>
+
+    <select>
+      <option value="">All Status</option>
+      <option>Open</option>
+      <option>Done</option>
+      <option>Hold</option>
+    </select>
+    <select>
+      <option value="">Assigned To</option>
+      <option></option>
+      <option></option>
+      
+    </select>
+    <div class="filter-actions">
+    <button class="btn primary">Apply</button>
+    <button class="btn">Reset</button>
+  </div>
+  </div>
+</div>
+<div class="row2">
+
+<!-- TASK LIST -->
+<div class="card">
+  <h3 style="margin-bottom:12px">Task List</h3>
+  <div id="taskList"></div>
+</div>
+
+<!-- TASK DETAILS -->
+<div class="card">
+  <h3>Task Details</h3>
+  <div id="dTitle"></div>
+  <div id="dUser"></div>
+  <div id="dDate"></div>
+  <div id="dPriority"></div>
+  <div id="dStatus"></div>
+  <p id="dDesc"></p>
+</div>
+
+</div>
+</main>
+</div>
+
+<!-- NEW TASK MODAL -->
+<div class="modal" id="taskModal">
+  <div class="modal-content">
+    <h3 id="modalTitle">New Task</h3>
+    <input id="title" placeholder="Task Title">
+    <input id="user" placeholder="Assigned To">
+    <input id="date" type="date">
+    <select id="priority">
+      <option value="high">High</option>
+      <option value="medium">Medium</option>
+      <option value="low">Low</option>
+    </select>
+    <textarea id="desc" placeholder="Description"></textarea>
+
+    <div class="modal-actions">
+      <button class="save-btn" onclick="saveTask()">Save</button>
+      <button class="cancel-btn" onclick="closeTaskForm()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+lucide.createIcons();
+
+let editIndex=null;
+const modal=document.getElementById("taskModal");
+const taskList=document.getElementById("taskList");
+
+const tasks=[
+ {title:"Prepare Bail Application",user:"Adv. Rahul Verma",date:"2026-01-10",priority:"high",status:"open",desc:"Draft bail application."},
+ {title:"Review Property Documents",user:"Adv. Neha Singh",date:"2026-01-12",priority:"medium",status:"open",desc:"Verify title deed."}
+];
+
+function renderTasks(){
+ taskList.innerHTML="";
+ tasks.forEach((t,i)=>{
+  taskList.innerHTML+=`
+   <div class="task-item" onclick="loadTask(${i})">
+    <div class="task-title">${t.title}</div>
+    <div class="task-meta">${t.user}</div>
+    <span class="badge ${t.priority}">${t.priority}</span>
+    <div class="task-actions">
+      <button onclick="editTask(event,${i})">Edit</button>
+    </div>
+   </div>`;
+ });
+}
+renderTasks();
+
+function loadTask(i){
+ const t=tasks[i];
+ dTitle.innerText=t.title;
+ dUser.innerText=t.user;
+ dDate.innerText=t.date;
+ dPriority.innerHTML=`<span class="badge ${t.priority}">${t.priority}</span>`;
+ dStatus.innerHTML=`<span class="badge open">${t.status}</span>`;
+ dDesc.innerText=t.desc;
+}
+
+function openNewTask(){
+ editIndex=null;
+ modalTitle.innerText="New Task";
+ title.value=user.value=date.value=desc.value="";
+ priority.value="high";
+ modal.style.display="flex";
+}
+
+function editTask(e,i){
+ e.stopPropagation();
+ editIndex=i;
+ const t=tasks[i];
+ modalTitle.innerText="Edit Task";
+ title.value=t.title;
+ user.value=t.user;
+ date.value=t.date;
+ priority.value=t.priority;
+ desc.value=t.desc;
+ modal.style.display="flex";
+}
+
+function saveTask(){
+ if(editIndex!==null){
+  tasks[editIndex]={...tasks[editIndex],
+   title:title.value,
+   user:user.value,
+   date:date.value,
+   priority:priority.value,
+   desc:desc.value
+  };
+ }else{
+  tasks.push({
+   title:title.value,
+   user:user.value,
+   date:date.value,
+   priority:priority.value,
+   status:"open",
+   desc:desc.value
+  });
+ }
+ closeTaskForm();
+ renderTasks();
+}
+
+function closeTaskForm(){
+ modal.style.display="none";
+}
+</script>
+
+</body>
+</html>
+
+
+
+
+
+

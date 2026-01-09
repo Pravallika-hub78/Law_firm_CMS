@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Clients | LawFirm CMS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #020617;
+      color: #e5e7eb;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 260px;
+      background: linear-gradient(180deg, #020617, #0f172a);
+      border-right: 1px solid #1e293b;
+      padding: 20px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+    .brand svg {
+      width: 36px;
+      height: 36px;
+      stroke: #facc15;
+    }
+    .nav a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 8px;
+      color: #cbd5f5;
+      text-decoration: none;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+    .nav a:hover,
+    .nav a.active {
+      background: #1e293b;
+      color: #facc15;
+    }
+
+    /* Main */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      height: 64px;
+      border-bottom: 1px solid #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+    }
+
+    .content {
+      padding: 24px;
+    }
+
+    .card {
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 20px;
+    }
+
+    /* Header */
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary:hover {
+      background: #1e40af;
+    }
+
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #1e293b;
+      text-align: left;
+    }
+
+    th {
+      color: #94a3b8;
+      font-weight: 600;
+    }
+
+    tr:hover {
+      background: #020617;
+    }
+
+    .link {
+      color: #facc15;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 20px;
+      border-bottom: 1px solid #1e293b;
+      margin-bottom: 16px;
+    }
+
+    .tab {
+      padding-bottom: 10px;
+      cursor: pointer;
+      color: #94a3b8;
+    }
+
+    .tab.active {
+      color: #facc15;
+      border-bottom: 2px solid #facc15;
+    }
+
+    .badge {
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      background: #1e293b;
+      color: #facc15;
+    }
+    .back-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #007bff;
+      color: white;
+      padding: 10px 16px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-family: Arial, sans-serif;
+    }
+    .back-button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="brand">
+    <i data-lucide="scale"></i>
+    <h2>LawFirm CMS</h2>
+  </div>
+
+  <nav class="nav">
+    <a href="1dashboard.html"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+    <a href="1.cases.html"><i data-lucide="briefcase"></i> Cases</a>
+    <a href="6.clients.html"><i data-lucide="users"></i> Clients</a>
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+
+  <header class="topbar">
+    <h3>Clients</h3>
+    <button class="btn-primary">
+      <i data-lucide="user-plus"></i>
+      <nav><a href="newclientform.html">Add New Client</a></nav>
+    </button>
+  </header>
+
+  <main class="content">
+
+    <!-- CLIENT LIST -->
+    <section class="card">
+      <h3>Client List</h3>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Client Name</th>
+            <th>Type</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Total Cases</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="link" onclick="openClient()">Rakesh Kumar</td>
+            <td>Individual</td>
+            <td>+91 98XXXX321</td>
+            <td>rakesh@email.com</td>
+            <td>3</td>
+          </tr>
+          <tr>
+            <td class="link" onclick="openClient()">ABC Corporation</td>
+            <td>Corporate</td>
+            <td>+91 99XXXX456</td>
+            <td>legal@abccorp.com</td>
+            <td>5</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- CLIENT DETAIL -->
+    <section class="card" id="clientDetail" style="display:none;">
+      <h3>Client: Rakesh Kumar</h3>
+      <p style="color:#94a3b8;">Individual • rakesh@email.com • +91 98XXXX321</p>
+
+      <div class="tabs">
+        <div class="tab active">Cases</div>
+        <div class="tab">Invoices</div>
+      </div>
+
+      <!-- CASES TAB -->
+      <table>
+        <thead>
+          <tr>
+            <th>Case Title</th>
+            <th>Court</th>
+            <th>Status</th>
+            <th>Next Hearing</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>State vs Rakesh Kumar</td>
+            <td>High Court</td>
+            <td><span class="badge">Active</span></td>
+            <td>10 Jan 2026</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <br />
+
+      <!-- INVOICES TAB (STATIC VIEW) -->
+      <h4>Invoices</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>Invoice No</th>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>INV-1024</td>
+            <td>02 Jan 2026</td>
+            <td>₹25,000</td>
+            <td><span class="badge">Unpaid</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+    </section>
+
+  </main>
+</div>
+
+<script>
+  lucide.createIcons();
+
+  function openClient() {
+    document.getElementById("clientDetail").style.display = "block";
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  }
+</script>
+<!-- Bottom-Right Back Button -->
+    <a href="1dashboard.html" class="back-button">Back</a>
+
+</body>
+</html>

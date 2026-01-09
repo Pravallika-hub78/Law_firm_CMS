@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Add New Client | LawFirm CMS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #020617;
+      color: #e5e7eb;
+      display: flex;
+      min-height: 100vh;
+    }
+    .brand{display:flex;align-items:center;gap:12px;margin-bottom:30px}
+    .brand svg{width:34px;height:34px;stroke:#facc15}
+
+    /* Layout */
+    .sidebar {
+      width: 260px;
+      background: linear-gradient(180deg, #020617, #0f172a);
+      border-right: 1px solid #1e293b;
+      padding: 20px;
+    }
+
+    .nav a {
+      display: flex;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 8px;
+      color: #cbd5f5;
+      text-decoration: none;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      background: #1e293b;
+      color: #facc15;
+    }
+
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      height: 64px;
+      border-bottom: 1px solid #1e293b;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+    }
+
+    .content {
+      padding: 24px;
+      max-width: 900px;
+    }
+
+    .card {
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 14px;
+      padding: 24px;
+    }
+
+    h3 {
+      margin-bottom: 16px;
+    }
+
+    /* Form */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    label {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px 12px;
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      color: #e5e7eb;
+      font-size: 14px;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .full {
+      grid-column: span 2;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid #1e293b;
+      padding: 10px 18px;
+      border-radius: 8px;
+      color: #cbd5f5;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background: #1e40af;
+    }
+    .back-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #007bff;
+      color: white;
+      padding: 10px 16px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-family: Arial, sans-serif;
+    }
+    .back-button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="brand">
+    <i data-lucide="scale"></i>
+    <h2>LawFirm CMS</h2>
+  </div>
+
+  <nav class="nav">
+    <a href="1dashboard.html"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+    <a href="1cases.html"><i data-lucide="briefcase"></i> Cases</a>
+    <a href="6.clients.html" class="active"><i data-lucide="users"></i> Clients</a>
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+
+  <header class="topbar">
+    <h3>Add New Client</h3>
+  </header>
+
+  <main class="content">
+
+    <section class="card">
+
+      <h3>Client Information</h3>
+
+      <div class="form-grid">
+
+        <!-- Client Type -->
+        <div>
+          <label>Client Type</label>
+          <select>
+            <option>Individual</option>
+            <option>Corporate</option>
+          </select>
+        </div>
+
+        <!-- Client Name -->
+        <div>
+          <label>Client Name</label>
+          <input type="text" placeholder="Enter full name / company name" />
+        </div>
+
+        <!-- Phone -->
+        <div>
+          <label>Phone Number</label>
+          <input type="text" placeholder="+91 XXXXX XXXXX" />
+        </div>
+
+        <!-- Email -->
+        <div>
+          <label>Email Address</label>
+          <input type="email" placeholder="client@email.com" />
+        </div>
+
+        <!-- Address -->
+        <div class="full">
+          <label>Address (Optional)</label>
+          <textarea placeholder="Client address"></textarea>
+        </div>
+
+      </div>
+
+      <!-- Actions -->
+      <div class="actions">
+        <button class="btn-primary">Save Client</button>
+        <button class="btn-secondary" onclick="window.history.back()">Cancel</button>
+      </div>
+
+    </section>
+
+  </main>
+</div>
+
+<script>
+  lucide.createIcons();
+</script>
+<!-- Bottom-Right Back Button -->
+    <a href="6.clients.html" class="back-button">Back</a>
+
+</body>
+</html>
